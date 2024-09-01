@@ -6,7 +6,7 @@ authors = ["mxxntype <59417007+mxxntype@users.noreply.github.com>"]
 
 [[bin]]
 name = "siren"
-path = "src/main.rs"
+path = "src/siren.rs"
 
 [lints.rust]
 unsafe_code = "forbid"
@@ -24,4 +24,5 @@ or_fun_call = { level = "allow", priority = 1 }
 [dependencies]
 clap = { version = "4.5.16", features = ["derive", "color"] }
 color-eyre = "0.6.3"
+pretty_assertions = "1.4.0"
 thiserror = "1.0.63"

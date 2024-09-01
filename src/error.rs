@@ -1,11 +1,12 @@
+#![allow(clippy::module_name_repetitions)]
+
 use std::num::ParseIntError;
+use thiserror::Error;
 
-#[allow(clippy::module_name_repetitions)]
-#[derive(thiserror::Error, Debug)]
+#[derive(Error, Debug, PartialEq, Eq)]
 pub enum ParseMacError {
-    #[error("Invalid MAC address length: {0} (Should be 6)")]
+    #[error("Invalid number of octets in the MAC: {0} (Should be 6)")]
     InvalidLength(usize),
-
-    #[error("Invalid MAC address octet: {0}")]
+    #[error("One or more of the MAC's octets are invalid: {0:?}")]
     InvalidOctet(#[from] ParseIntError),
 }
