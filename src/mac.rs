@@ -68,4 +68,28 @@ mod tests {
             },
         }
     }
+
+    #[test]
+    fn translate_mac_with_invalid_octet() {
+        let error = "11:22:33:44:55:666".parse::<Mac>().unwrap_err();
+        match error {
+            ParseMacError::InvalidLength(_) => panic!("Wrong error: {error:?}"),
+            ParseMacError::InvalidOctet(error) => match error.kind() {
+                IntErrorKind::PosOverflow => { /* Correct error kind */ }
+                _ => panic!("Wrong error kind: {:?}", error.kind()),
+            },
+        }
+    }
+
+    #[test]
+    fn translate_mac_with_invalid_negative_octet() {
+        let error = "11:22:33:44:55:-6".parse::<Mac>().unwrap_err();
+        match error {
+            ParseMacError::InvalidLength(_) => panic!("Wrong error: {error:?}"),
+            ParseMacError::InvalidOctet(error) => match error.kind() {
+                IntErrorKind::InvalidDigit => { /* Correct error kind */ }
+                _ => panic!("Wrong error kind: {:?}", error.kind()),
+            },
+        }
+    }
 }
