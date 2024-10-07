@@ -7,6 +7,6 @@ use thiserror::Error;
 pub enum ParseMacError {
     #[error("Invalid number of octets in the MAC: {0} (Should be 6)")]
     InvalidLength(usize),
-    #[error("One or more of the MAC's octets are invalid: {0:?}")]
+    #[error("One or more of the MAC's octets are invalid")]
     InvalidOctet(#[from] ParseIntError),
 }
